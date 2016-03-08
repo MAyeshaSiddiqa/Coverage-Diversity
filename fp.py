@@ -3,23 +3,6 @@ import itertools
 from collections import OrderedDict
 from operator import itemgetter
 
-# ---------------------- Footprint cases retrieval -----------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 fp = open('input.txt')
@@ -32,7 +15,9 @@ data = [word.strip() for word in inp]
 cov = {}
 for d in data:
 	temp = d.split(':')
-	cov[temp[0]] = temp[1]
+        cvs = temp[1].split(',')
+        print 'concepts',cvs
+	cov[temp[0]] = cvs
 	
 #print 'Coverage',cov
 
@@ -60,7 +45,7 @@ for d in data:
 Re = {}
 for key,value in cov.items():
 	lis = cov.get(key)
-	lis = lis.split(',')
+	#lis = lis.split(',')
 	temp = []
 	for l in lis:
 		temp.append(Rv.get(l))
@@ -88,7 +73,17 @@ d = OrderedDict(sorted(RC.items(), key=itemgetter(1), reverse = True))
 # OrderedDict preserves the order we give
 print 'Relative coverage', d
 
+#-----------------------------------------------------------------------------------------
+# FootPrint set of the concepts 
+FP = []
+
+l = 0
+
+while (l != len(cov)):
+	for i in cov.values()[l]:
+		if i not in FP:
+			FP.append(i)
+	l+=1
 
 
-
-
+print 'Footprint cases:\n',FP
